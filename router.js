@@ -2,34 +2,23 @@ const express = require("express");
 
 const router = express.Router();
 
-let peopleId = 2;
+let choreId = 0;
+console.log("Chore ID: ", choreId);
 
 let people = [
   { id: 1, name: "Robert Jordan" },
   { id: 2, name: "Rand al'Thor" }
 ];
 
-let chores = [
-  {
-    assignedTo: 1,
-    choreId: 1,
-    description: "Seed description",
-    notes: "optional notes",
-    completed: false
-  },
-  {
-    assignedTo: 1,
-    choreId: 2,
-    description: "Seed description 2",
-    notes: "optional notes 2",
-    completed: true
-  }
-];
+let chores = [];
 
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
+router.get("/", (req, res) => {
+  res.status(200).json(chores);
+});
+
+router.get("/:userId", (req, res) => {
+  const id = req.params.userId;
   const completed = req.query.completed || "all";
-  console.log(completed);
   if (people[id - 1]) {
     let personChores = chores.filter(chore => chore.assignedTo == id);
     let filterByComplete = [];
@@ -50,32 +39,28 @@ router.get("/:id", (req, res) => {
   }
 });
 
-// router.get("/:id/chores", (req, res) => {
-//   req.body.user_id = req.params.id - 1;
-//   if (people[id]) {
-//     console.log("Good ID!");
-//     res.status(200).json({});
-//   } else {
-//     console.log("Bad ID!");
-//     res.status(400).json({ message: "A person with that ID does not exist." });
-//   }
-// });
-
-// router.post("/:id/chores", (req, res) => {
-//   const id = req.params.id;
-//   if (id) {
-//     console.log("ID provided!");
-//     res.status(200).json({});
-//   } else  {
-//     console.log("No ID provided!");
-//     res.status(400).json({ message: "Please provide an ID." });
-//   }
-// });
-
-router.get("/", (req, res) => {});
+router.post("/", (req, res) => {
+  const assignedTo = req.body.assignedTo;
+  const chore = req.body;
+  if (assignedTo && chore.description) {
+    chore.choreId = choreId + 1;
+    chore.assignedTo = Number(assignedTo);
+    choreId += 1;
+    chores.push(chore);
+    res.status(200).json(chores);
+  } else {
+    res
+      .status(400)
+      .json({ message: "Please provide a user ID and chore description." });
+  }
+});
 
 router.put("/", (req, res) => {});
 
-router.delete("/", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  console.log("Delete chore #: ", req.params.id);
+  chores = chores.filter(chore => chore.choreId != req.params.id);
+  res.status(201).json(chores);
+});
 
 module.exports = router;

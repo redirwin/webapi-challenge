@@ -56,9 +56,18 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  const assignedTo = req.body.assignedTo;
+  const chore = req.body;
   choresIndex = req.params.id - 1;
-  chores[choresIndex] = req.body;
-  res.status(200).json(chores);
+
+  if (assignedTo && chore.description) {
+    chores[choresIndex] = chore;
+    res.status(200).json(chores);
+  } else {
+    res
+      .status(400)
+      .json({ message: "Please provide a assignedTo and description." });
+  }
 });
 
 router.delete("/:id", (req, res) => {

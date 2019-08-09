@@ -55,12 +55,15 @@ router.post("/", (req, res) => {
   }
 });
 
-router.put("/", (req, res) => {});
+router.put("/:id", (req, res) => {
+  choresIndex = req.params.id - 1;
+  chores[choresIndex] = req.body;
+  res.status(200).json(chores);
+});
 
 router.delete("/:id", (req, res) => {
-  console.log("Delete chore #: ", req.params.id);
   chores = chores.filter(chore => chore.choreId != req.params.id);
-  res.status(201).json(chores);
+  res.status(200).json(chores);
 });
 
 module.exports = router;

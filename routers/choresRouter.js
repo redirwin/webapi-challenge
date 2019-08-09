@@ -2,9 +2,15 @@ const express = require("express");
 
 const router = express.Router();
 
-const Chores = require("./choresDb");
+// const Chores = require("./choresDb");
 
-router.post("/", (req, res) => {});
+let chores = [];
+
+let idPlaceholder = 0;
+
+router.post("/", (req, res) => {
+  chores.push(req.body);
+});
 
 router.get("/", (req, res) => {});
 

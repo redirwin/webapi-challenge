@@ -13,8 +13,19 @@ let people = [
 let chores = [];
 
 router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  console.log(id);
+  const id = req.params.id - 1;
+  if (people[id]) {
+    console.log("Good ID!");
+    res.status(200).json({});
+  } else {
+    console.log("Bad ID!");
+    res.status(400).json({ message: "A person with that ID does not exist." });
+  }
+});
+
+router.get("/:id/chores", (req, res) => {
+  const id = req.params.id - 1;
+  console.log(people[id]);
 });
 
 router.post("/", (req, res) => {

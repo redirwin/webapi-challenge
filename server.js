@@ -1,12 +1,12 @@
 const express = require("express");
 
-const router = express.Router;
+const myRouter = require("./router");
 
 const server = express();
 
 server.use(express.json());
-server.use("/:personId/chores", router);
-server.use("/", router);
+server.use("/:personId/chores", myRouter);
+server.use("/", myRouter);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "local server" });

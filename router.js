@@ -29,11 +29,20 @@ let chores = [
 router.get("/:id", (req, res) => {
   const id = req.params.id;
   const completed = req.query.completed;
+  req.query.completed
+    ? (completed = req.query.completed)
+    : console.log("no param");
   if (people[id - 1]) {
     let personChores = chores.filter(chore => chore.assignedTo == id);
+
+    if(completed)
+
     let filterByComplete = personChores.map(chore => chore);
 
-    if (completed === "true") {
+    if (!completed) {
+      filterByComplete = personChores.map(chore => chore);
+      return;
+    } else if (completed === "true") {
       filterByComplete = personChores.filter(chore => chore.completed == true);
     } else if (completed === "false") {
       filterByComplete = personChores.filter(chore => chore.completed == false);

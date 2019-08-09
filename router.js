@@ -57,11 +57,9 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const assignedTo = req.body.assignedTo;
-  const chore = req.body;
-  choresIndex = req.params.id - 1;
 
   if (assignedTo && chore.description) {
-    chores[choresIndex] = chore;
+    chores[req.params.id - 1] = req.body;
     res.status(200).json(chores);
   } else {
     res

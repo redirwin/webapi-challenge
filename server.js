@@ -9,7 +9,7 @@ server.use("/chores", myRouter);
 server.use("/", myRouter);
 
 server.get("/", (req, res) => {
-  res.status(200).json({ message: "local server" });
+  res.status(200).json({ runningOn: process.env.TEST });
 });
 
 module.exports = server;

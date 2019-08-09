@@ -5,7 +5,7 @@ const myRouter = require("./router");
 const server = express();
 
 server.use(express.json());
-server.use("/:personId/chores", myRouter);
+server.use("/chores", myRouter);
 server.use("/", myRouter);
 
 server.get("/", (req, res) => {

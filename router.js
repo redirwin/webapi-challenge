@@ -2,9 +2,20 @@ const express = require("express");
 
 const router = express.Router();
 
+let peopleId = 2;
+let choresId = 0;
+
+let people = [
+  { id: 1, name: "Robert Jordan" },
+  { id: 2, name: "Rand al'Thor" }
+];
+
 let chores = [];
 
-let choresId = 0;
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+});
 
 router.post("/", (req, res) => {
   chores.push(req.body);

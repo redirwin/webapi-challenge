@@ -1,12 +1,12 @@
 const express = require("express");
-const choresRouter = require("../routers/choresRouter");
-const peopleRouter = require("../routers/peopleRouter");
+
+const router = express.Router;
 
 const server = express();
 
 server.use(express.json());
-server.use("/:personId/chores", choresRouter);
-server.use("/", peopleRouter);
+server.use("/:personId/chores", router);
+server.use("/", router);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "local server" });

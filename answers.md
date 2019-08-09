@@ -1,6 +1,6 @@
 - [ ] Mention two parts of Express that you learned about this week.
 
-- Routing & middleware. Routing helps us seperate concerns within our application, such as a route for users and a route for tasks. Middleware, such as
+- Routing & middleware. Routing helps us seperate concerns within our application, such as a route for users and a route for tasks. Middleware, adds additional functionality to our backend.
 
 - [ ] What is Express Middleware?
 

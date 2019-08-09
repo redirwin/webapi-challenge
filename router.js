@@ -28,15 +28,21 @@ let chores = [
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
+  const completed = req.query.completed;
   if (people[id - 1]) {
-    console.log("Good ID! ", id);
     let personChores = chores.filter(chore => chore.assignedTo == id);
-    console.log("Chores: ", personChores);
+    let filterByComplete = personChores.map(chore => chore);
+
+    if (completed === "true") {
+      filterByComplete = personChores.filter(chore => chore.completed == true);
+    } else if (completed === "false") {
+      filterByComplete = personChores.filter(chore => chore.completed == false);
+    } else return filterByComplete;
+
     personChores.length > 0
-      ? res.status(200).json(personChores)
+      ? res.status(200).json(filterByComplete)
       : res.status(200).json({});
   } else {
-    console.log("Bad ID!");
     res.status(400).json({ message: "A person with that ID does not exist." });
   }
 });

@@ -28,15 +28,18 @@ let chores = [
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
-  const completed = req.query.completed;
+  const completed = req.query.completed || "all";
+  console.log(completed);
   if (people[id - 1]) {
     let personChores = chores.filter(chore => chore.assignedTo == id);
-    let filterByComplete = personChores.map(chore => chore);
+    let filterByComplete = [];
 
     if (completed === "true") {
       filterByComplete = personChores.filter(chore => chore.completed == true);
     } else if (completed === "false") {
       filterByComplete = personChores.filter(chore => chore.completed == false);
+    } else if (completed === "all") {
+      filterByComplete = personChores.map(chore => chore);
     } else return filterByComplete;
 
     personChores.length > 0

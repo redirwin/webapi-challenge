@@ -6,7 +6,6 @@ const server = express();
 
 server.use(express.json());
 server.use("/chores", myRouter);
-// server.use("/", myRouter);
 
 server.get("/", (req, res) => {
   res.status(200).json({ runningOn: process.env.TEST });

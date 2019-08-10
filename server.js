@@ -5,6 +5,7 @@ const myRouter = require("./router");
 const server = express();
 
 server.use(express.json());
+
 server.use("/chores", myRouter);
 
 server.get("/", (req, res) => {
